@@ -19,9 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/publish', function () {
-    Redis::publish('test-channel', json_encode([
-        'name'  => 'Anderson Freitas',
-        'email' => 'anderson.bask@gmail.com'
-    ]));
+Route::post('/publish', function (Request $request) {
+    Redis::publish('test-channel', json_encode($request->input()));
 });
